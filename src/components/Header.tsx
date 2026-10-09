@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getLenis, scrollToSection } from "../animations/scrollTo";
+import { site } from "../content/site";
+import { BrandLogo } from "./BrandLogo";
 import { MenuOverlay } from "./MenuOverlay";
 import { ChatPanel } from "./ChatPanel";
 
@@ -59,10 +61,7 @@ export function Header() {
           scrollToSection("hero");
         }}
       >
-        <span className="brand-logo" aria-hidden="true">
-          <span className="brand-logo-base" />
-          <span className="brand-logo-accent" />
-        </span>
+        <BrandLogo />
       </a>
       <div className="header-side header-end">
         <button
@@ -77,7 +76,7 @@ export function Header() {
             setChatOpen(true);
           }}
         >
-          Let's chat <span aria-hidden="true">→</span>
+          {site.contact.cta} <span aria-hidden="true">→</span>
         </button>
       </div>
       {menuOpen ? (
@@ -109,7 +108,7 @@ export function Header() {
 
 function MenuIcon() {
   return (
-    <svg viewBox="0 0 18 12" width="18" height="12" aria-hidden="true">
+    <svg viewBox="0 0 18 12" width="22" height="15" aria-hidden="true">
       <path d="M0 1h18M0 6h18M0 11h18" stroke="currentColor" strokeWidth="1.2" />
     </svg>
   );

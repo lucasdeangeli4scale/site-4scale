@@ -48,7 +48,25 @@ export type SiteContent = {
   clients: readonly Client[];
   contact: {
     email: string;
-    note: string;
+    cta: string;
+    whatsappUrl: string;
+    panel: {
+      title: string;
+      titleAccent: string;
+      body: string;
+      emailLabel: string;
+      placeLabel: string;
+      place: string;
+      addressLabel: string;
+      address: string;
+      whatsappLabel: string;
+      whatsappAction: string;
+      linkedinLabel: string;
+      linkedinUrl: string;
+      youtubeLabel: string;
+      youtubeUrl: string;
+    };
+    interests: readonly string[];
   };
   footer: {
     mark: string;
@@ -57,6 +75,8 @@ export type SiteContent = {
     instagramUrl: string;
     termsLabel: string;
     termsPath: string;
+    cnpj: string;
+    rights: string;
   };
   terms: {
     title: string;
@@ -84,95 +104,43 @@ export const site: SiteContent = {
   },
   services: [
     {
-      id: "analise-de-dados",
+      id: "marketing-digital-performance",
       index: "01",
-      title: "Análise de Dados",
+      title: "Marketing Digital & Performance",
       items: [
-        "Análise e insights de dados",
-        "Desenvolvimento de painéis de dados",
-        "Otimização de taxa de conversão",
-        "Análise de ADS",
-        "Elaboração e análise de funis",
+        "Mídia Paga (Meta, Google, TikTok, LinkedIn)",
+        "Estruturação de Funis de Aquisição",
+        "Otimização Contínua de Taxa de Conversão (CRO)",
       ],
     },
     {
-      id: "automacao",
+      id: "inteligencia-artificial-dados",
       index: "02",
-      title: "Automação",
+      title: "Inteligência Artificial & Dados",
       items: [
-        "Automação de e-mails",
-        "Automação de chatbots",
-        "Automação de mensagens",
-        "Automação de serviços",
+        "Modelos Preditivos de Demanda e Churn",
+        "Atribuição Avançada de Canais",
+        "Enriquecimento de Dados de Clientes",
       ],
     },
     {
-      id: "midia-paga",
+      id: "automacao-processos",
       index: "03",
-      title: "Mídia Paga",
+      title: "Automação & Processos",
       items: [
-        "Estratégia e planejamento de mídia",
-        "Busca e social mídia paga",
-        "Anúncios de marketing",
-        "Criativos de alta conversão",
-        "Programático e exibição",
+        "Integrações n8n, Zapier & Webhooks",
+        "Automação de WhatsApp e CRM",
+        "Sincronização de Catálogos & Estoque",
       ],
     },
     {
-      id: "midia-organica",
+      id: "software-apps-ecommerce",
       index: "04",
-      title: "Mídia Orgânica",
+      title: "Software, Apps & E-commerce",
       items: [
-        "Otimização de buscas",
-        "Otimização de SEO",
-        "Marketing de conteúdo",
-        "Social mídia orgânica",
-        "E-mail marketing",
-      ],
-    },
-    {
-      id: "saas",
-      index: "05",
-      title: "SaaS",
-      items: [
-        "Sistemas web robustos",
-        "Acessíveis em qualquer ambiente",
-        "Front-end intuitivo e back-end escalável",
-      ],
-    },
-    {
-      id: "criativos",
-      index: "06",
-      title: "Criativos",
-      items: [
-        "Criativos profissionais",
-        "Produção de conteúdo",
-        "Design gráfico",
-        "Criativos de vídeo",
-      ],
-    },
-    {
-      id: "sites",
-      index: "07",
-      title: "Sites",
-      items: [
-        "Design e redesign de sites",
-        "Performance e otimização de sites",
-        "Layout e elaboração de LPs",
-        "Páginas de captura e formulários",
-        "Sites institucionais",
-      ],
-    },
-    {
-      id: "ecommerce",
-      index: "08",
-      title: "E-commerce",
-      items: [
-        "Análise e otimização de funis de e-commerce",
-        "Implementação e gerenciamento de ferramentas de vendas",
-        "Criação de catálogos e descrições de produtos",
-        "Otimização de checkout e carrinhos abandonados",
-        "Estratégias de retenção e fidelização",
+        "LPs de Altíssima Conversão",
+        "E-commerces Escaláveis (Shopify, Nuvemshop, Vtex)",
+        "Sistemas Web e Dashboards Customizados",
       ],
     },
   ],
@@ -198,44 +166,14 @@ export const site: SiteContent = {
       imageAlt: "Logo da Colibri Festas e Decorações",
     },
     {
-      id: "atlas",
-      title: "Atlas\nLumina",
-      accent: "Lumina",
+      id: "nano-smart-vet",
+      title: "Nano Smart\nVet",
+      accent: "Vet",
       summary:
-        "Um sistema de marca desenhado para sair do discurso e entrar na operação, com linguagem única do primeiro contato à escala.",
-      tags: ["Pensamento", "Direção", "Identidade", "Sistema"],
-      image: "/cases/atlas.svg",
-      imageAlt: "Composição provisória do projeto Atlas Lumina",
-    },
-    {
-      id: "norte",
-      title: "Linha\nNorte",
-      accent: "Norte",
-      summary:
-        "Estratégia de crescimento para uma oferta que precisava de foco: menos ruído, mais clareza sobre o que escala.",
-      tags: ["Estratégia", "Oferta", "Narrativa", "Go-to-market"],
-      image: "/cases/norte.svg",
-      imageAlt: "Composição provisória do projeto Linha Norte",
-    },
-    {
-      id: "sala",
-      title: "Sala\nAberta",
-      accent: "Aberta",
-      summary:
-        "Experiência digital e presencial no mesmo desenho, para a marca ser reconhecida antes de ser explicada.",
-      tags: ["Experiência", "Digital", "Espaço", "Conteúdo"],
-      image: "/cases/sala.svg",
-      imageAlt: "Composição provisória do projeto Sala Aberta",
-    },
-    {
-      id: "mare",
-      title: "Maré\nAlta",
-      accent: "Alta",
-      summary:
-        "Operação comercial reorganizada para sustentar demanda nova sem perder o critério que construiu a reputação.",
-      tags: ["Escala", "Operação", "Performance", "Processo"],
-      image: "/cases/mare.svg",
-      imageAlt: "Composição provisória do projeto Maré Alta",
+        "Autoridade digital do absoluto zero: audiência B2B qualificada antes do lançamento, com social media científico e identidade visual.",
+      tags: ["Social Media", "Identidade", "B2B", "Biotecnologia"],
+      image: "/cases/nano-smart.png",
+      imageAlt: "Logo da Nano Smart Vet",
     },
   ],
   team: [
@@ -243,38 +181,30 @@ export const site: SiteContent = {
       id: "carlos",
       index: "01",
       name: "Carlos",
-      role: "CEO",
+      role: "Sócio Fundador e Comercial",
       image: "/team/carlos.jpg",
-      imageAlt: "Carlos, CEO da 4SCALE",
+      imageAlt: "Carlos, Sócio Fundador e Comercial da 4SCALE",
     },
     {
       id: "joao",
       index: "02",
       name: "João",
-      role: "CEO",
+      role: "Sócio Fundador e Diretor de Projetos",
       image: "/team/joao.jpg",
-      imageAlt: "João, CEO da 4SCALE",
+      imageAlt: "João, Sócio Fundador e Diretor de Projetos da 4SCALE",
       focus: "center 82%",
     },
     {
       id: "calazans",
       index: "03",
-      name: "Calazans",
-      role: "CEO",
+      name: "Lucas Calazans",
+      role: "Sócio e Performance",
       image: "/team/calazans.jpg",
-      imageAlt: "Calazans, CEO da 4SCALE",
-    },
-    {
-      id: "caroline-desenvolvimento",
-      index: "04",
-      name: "Caroline",
-      role: "Desenvolvimento",
-      image: "/team/caroline-desenvolvimento.jpg",
-      imageAlt: "Caroline, Desenvolvimento da 4SCALE",
+      imageAlt: "Lucas Calazans, Sócio e Performance da 4SCALE",
     },
     {
       id: "caroline-social-media",
-      index: "05",
+      index: "04",
       name: "Caroline",
       role: "Social Media",
       image: "/team/caroline-social-media.jpg",
@@ -282,7 +212,7 @@ export const site: SiteContent = {
     },
     {
       id: "iara",
-      index: "06",
+      index: "05",
       name: "Iara",
       role: "Performance",
       image: "/team/iara.jpg",
@@ -290,23 +220,15 @@ export const site: SiteContent = {
     },
     {
       id: "lucas",
-      index: "07",
+      index: "06",
       name: "Lucas",
       role: "UX Design",
       image: "/team/lucas.jpg",
       imageAlt: "Lucas, UX Design da 4SCALE",
     },
     {
-      id: "malu",
-      index: "08",
-      name: "Malu",
-      role: "Social Media",
-      image: "/team/malu.jpg",
-      imageAlt: "Malu, Social Media da 4SCALE",
-    },
-    {
       id: "tarso",
-      index: "09",
+      index: "07",
       name: "Tarso",
       role: "Designer",
       image: "/team/tarso.jpg",
@@ -398,7 +320,33 @@ export const site: SiteContent = {
   ],
   contact: {
     email: "contato@4scale.com",
-    note: "Conte o contexto, o prazo e o que precisa escalar.",
+    cta: "Vamos começar?",
+    whatsappUrl:
+      "https://api.whatsapp.com/send?phone=5527995826048&text=Ol%C3%A1,%20tenho%20interesse%20em%20saber%20mais%20sobre%20a%204Scale%20e%20seus%20produtos",
+    panel: {
+      title: "Qual parte da sua operação poderia",
+      titleAccent: "ganhar mais tração?",
+      body: "Cansado de parceiros que só prometem mais do mesmo e entregam apenas o básico? Agende um bate-papo estratégico com nossos especialistas e descubra como a 4SCALE pode destravar o próximo nível da sua empresa.",
+      emailLabel: "E-mail",
+      placeLabel: "Localização",
+      place: "Edifício Madison Office Tower",
+      addressLabel: "Endereço",
+      address: "R. Darcy Grijó, 50 - Sala 404 - Jardim da Penha, Vitória - ES, 29060-500",
+      whatsappLabel: "WhatsApp Oficial",
+      whatsappAction: "Iniciar conversa instantânea",
+      linkedinLabel: "LinkedIn",
+      linkedinUrl:
+        "https://www.linkedin.com/company/108258641/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3Bl3YyIqmrRJKCSQWy7ieesQ%3D%3D",
+      youtubeLabel: "YouTube",
+      youtubeUrl: "https://www.youtube.com/@4scale",
+    },
+    interests: [
+      "Ecossistema Completo (Marketing + Tecnologia)",
+      "Marketing Digital & Performance",
+      "Inteligência Artificial & Dados",
+      "Automação & Processos",
+      "Software, Apps & E-commerce",
+    ],
   },
   footer: {
     mark: "4SCALE",
@@ -407,6 +355,8 @@ export const site: SiteContent = {
     instagramUrl: "https://www.instagram.com/4scale.mkt/",
     termsLabel: "Termos de Uso",
     termsPath: "/termos",
+    cnpj: "55.327.016/0001-03",
+    rights: "© 2026 4Scale. Todos os direitos reservados.",
   },
   terms: {
     title: "Termos de Uso",

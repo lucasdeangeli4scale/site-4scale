@@ -172,7 +172,8 @@ a.brand {
 .brand-logo {
   position: relative;
   display: block;
-  height: 2.85rem;
+  height: 3.65rem;
+  max-width: min(42vw, 15rem);
   aspect-ratio: 3000 / 927;
   width: auto;
 }
@@ -201,8 +202,9 @@ a.brand {
 .text-button {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: 0.92rem;
+  gap: 0.65rem;
+  font-size: 1.15rem;
+  font-weight: 500;
 }
 
 .rail {
@@ -274,7 +276,7 @@ a.brand {
   font-size: clamp(2.15rem, 8.35vw, 9.4rem);
   font-weight: 600;
   letter-spacing: -0.045em;
-  line-height: 0.88;
+  line-height: 0.92;
   text-align: left;
   text-transform: uppercase;
 }
@@ -291,10 +293,16 @@ a.brand {
 .line-mask {
   display: block;
   overflow: hidden;
+  padding-top: 0.2em;
+}
+
+.hero h1 .line-mask + .line-mask {
+  margin-top: -0.08em;
 }
 
 .hero-line {
   display: block;
+  text-align: left;
 }
 
 .scroll-cue {
@@ -432,10 +440,10 @@ html.motion #clients { z-index: 5; }
   margin: 0;
   padding: 0 0 1.4rem;
   list-style: none;
-  font-size: clamp(1.8rem, 4.3vw, 4.2rem);
+  font-size: clamp(1.45rem, 3.15vw, 3.15rem);
   font-weight: 600;
   letter-spacing: -0.045em;
-  line-height: 1.02;
+  line-height: 1.12;
 }
 
 .cases {
@@ -873,6 +881,25 @@ html.motion .site-footer {
   color: #f4efe4;
 }
 
+.footer-legal {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.28rem;
+  max-width: min(36rem, 92vw);
+  margin: 1.15rem 0 0;
+  color: #8f897f;
+  font-size: clamp(0.68rem, 0.85vw, 0.82rem);
+  line-height: 1.45;
+  text-align: center;
+}
+
+.footer-legal p {
+  margin: 0;
+}
+
 .terms {
   min-height: 100dvh;
   padding: 8vh 8vw 10vh;
@@ -943,31 +970,374 @@ html.motion .site-footer {
   text-decoration: none;
 }
 
-.chat-copy {
-  max-width: 36rem;
-  margin: auto 0;
+.menu-panel {
+  overflow: auto;
+  background: #000;
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.menu-panel.is-open {
+  opacity: 1;
+}
+
+.panel-logo {
+  display: block;
+  width: auto;
+  height: 3.35rem;
+  max-width: min(18rem, calc(100vw - 14rem));
+  aspect-ratio: 3000 / 927;
+  object-fit: contain;
+  object-position: center;
+  justify-self: center;
+  align-self: center;
+}
+
+.menu-panel .overlay-bar,
+.chat-panel .overlay-bar {
+  overflow: visible;
+}
+
+.menu-panel .overlay-bar .panel-logo {
+  height: 2.75rem;
+}
+
+.menu-panel .text-button {
+  transition: color 220ms ease;
+}
+
+.menu-panel .text-button:hover,
+.menu-panel .text-button:focus-visible {
+  color: var(--logo-accent);
+}
+
+.menu-panel nav {
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding-block: 1.25rem;
+  text-align: center;
+}
+
+.menu-panel nav a {
+  position: relative;
+  display: inline-block;
+  padding: 0.08em 0.15em 0.16em;
+  color: var(--ink);
+  font-size: clamp(2rem, 5vw, 4.15rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+  transition: color 220ms ease;
+}
+
+.menu-panel nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.06em;
+  width: 0;
+  height: 1px;
+  background: var(--logo-accent);
+  transform: translateX(-50%);
+  transition: width 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-panel nav a:hover,
+.menu-panel nav a:focus-visible {
+  color: var(--logo-accent);
+}
+
+.menu-panel nav a:focus-visible::after {
+  width: 1.6rem;
+}
+
+.menu-panel.is-open nav a {
+  animation: menu-link-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes menu-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu-panel nav:hover a:not(:hover):not(:focus-visible) {
+    color: #8f897f;
+  }
+
+  .menu-panel nav a:hover::after {
+    width: 1.6rem;
+  }
+}
+
+.chat-panel {
+  overflow: auto;
+  background: var(--bg);
+  padding-bottom: 2.5rem;
+}
+
+.chat-panel .overlay-bar .panel-logo {
+  height: 3.15rem;
+  max-width: min(18rem, calc(100vw - 10rem));
+}
+
+.chat-layout {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.86fr) minmax(18rem, 1.14fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  width: min(1120px, 100%);
+  margin: 2.5rem auto 0;
+  align-items: start;
 }
 
 .chat-copy h2 {
-  margin: 0 0 1rem;
-  font-size: clamp(3rem, 7vw, 6rem);
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(2.15rem, 4vw, 3.45rem);
   font-weight: 600;
-  letter-spacing: -0.05em;
-  line-height: 0.92;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
 }
 
-.chat-copy p {
-  max-width: 36ch;
-  font-size: 1.05rem;
-  line-height: 1.45;
+.chat-copy h2 span {
+  color: var(--logo-accent);
 }
 
-.chat-copy a {
-  display: inline-block;
-  margin-top: 0.5rem;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  letter-spacing: -0.03em;
+.chat-copy > p {
+  max-width: 42ch;
+  margin: 1.15rem 0 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
+.chat-contacts {
+  display: grid;
+  gap: 1.15rem;
+  margin: 1.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chat-contacts li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.chat-contacts svg {
+  margin-top: 0.15rem;
+  color: var(--logo-accent);
+  flex-shrink: 0;
+}
+
+.chat-contacts p,
+.chat-contacts strong,
+.chat-contacts a {
+  margin: 0;
+}
+
+.chat-contacts p {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.chat-contacts a,
+.chat-contacts strong {
+  display: block;
+  margin-top: 0.12rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   text-decoration: none;
+}
+
+.chat-contacts a[target="_blank"] {
+  color: var(--logo-accent);
+}
+
+.chat-social {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(244, 239, 228, 0.14);
+}
+
+.chat-social a {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 1px solid rgba(244, 239, 228, 0.28);
+  border-radius: 50%;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.chat-social a:hover {
+  border-color: var(--logo-accent);
+  color: var(--logo-accent);
+}
+
+.lead-form {
+  position: relative;
+  display: grid;
+  gap: 1.05rem;
+}
+
+.lead-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lead-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.05rem 1.15rem;
+}
+
+.lead-field {
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.lead-required {
+  margin-left: 0.2rem;
+  color: var(--logo-accent);
+  text-decoration: none;
+}
+
+.lead-field input,
+.lead-field textarea,
+.lead-field select {
+  width: 100%;
+  margin: 0;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(244, 239, 228, 0.14);
+  border-radius: 0.85rem;
+  background: #141414;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+}
+
+.lead-field textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.lead-field input::placeholder,
+.lead-field textarea::placeholder {
+  color: #8d877c;
+}
+
+.lead-field input:focus,
+.lead-field textarea:focus,
+.lead-field select:focus {
+  outline: 2px solid var(--logo-accent);
+  outline-offset: 2px;
+}
+
+.lead-select-wrap {
+  position: relative;
+}
+
+.lead-select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 1.1rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.lead-field select {
+  appearance: none;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
+.lead-error {
+  color: #ffb4a8;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.lead-submit {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 1rem 1.4rem;
+  border-radius: 999px;
+  background: var(--logo-accent);
+  color: #1a120c;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  box-shadow: 0 0 28px rgba(233, 133, 90, 0.32);
+}
+
+.lead-submit:hover {
+  filter: brightness(1.06);
+}
+
+.lead-submit:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.lead-success {
+  margin: 0;
+  padding: 2rem 0;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.lead-success:focus {
+  outline: none;
+}
+
+.whatsapp-float {
+  position: fixed;
+  right: calc(1.25rem + env(safe-area-inset-right));
+  bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  z-index: 10;
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.whatsapp-float:hover {
+  filter: brightness(1.05);
 }
 
 .fatal {
@@ -1012,8 +1382,36 @@ html.motion .site-footer {
     font-size: 0.68rem;
   }
 
+  .footer-legal {
+    margin-top: 0.85rem;
+    font-size: 0.68rem;
+  }
+
   .text-button {
     font-size: 0.82rem;
+  }
+
+  .header .text-button {
+    white-space: nowrap;
+  }
+
+  .chat-layout,
+  .lead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-panel .overlay-bar .panel-logo {
+    height: 2.2rem;
+    max-width: min(11rem, calc(100vw - 8.5rem));
+  }
+
+  .menu-panel .overlay-bar .panel-logo {
+    height: 1.9rem;
+    max-width: min(10.5rem, calc(100vw - 9rem));
+  }
+
+  .menu-panel nav a {
+    font-size: clamp(1.85rem, 10vw, 2.7rem);
   }
 
   .services-layout {
@@ -1128,5 +1526,17 @@ html.motion .site-footer {
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue-line {
     animation: none;
+  }
+
+  .menu-panel,
+  .menu-panel .text-button,
+  .menu-panel nav a,
+  .menu-panel nav a::after {
+    transition: none;
+    animation: none;
+  }
+
+  .menu-panel {
+    opacity: 1;
   }
 }

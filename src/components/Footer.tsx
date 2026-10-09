@@ -18,6 +18,10 @@ export function Footer() {
           <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
           <a href={site.footer.termsPath}>{site.footer.termsLabel}</a>
         </div>
+        <div className="footer-legal">
+          <p>CNPJ: {site.footer.cnpj}</p>
+          <p>{site.footer.rights}</p>
+        </div>
       </div>
     </footer>
   );

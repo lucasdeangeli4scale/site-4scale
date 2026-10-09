@@ -10,6 +10,7 @@ import { SectionRail } from "./components/SectionRail";
 import { Services } from "./components/Services";
 import { Team } from "./components/Team";
 import { TermsPage } from "./components/TermsPage";
+import { WhatsAppButton } from "./components/WhatsAppButton";
 import { useSiteScroll } from "./animations/useSiteScroll";
 
 export function App() {
@@ -17,27 +18,35 @@ export function App() {
   const [active, setActive] = useState("hero");
   useSiteScroll(rootRef, setActive);
 
-  if (window.location.pathname === "/termos") {
-    return <TermsPage />;
-  }
+  const isTerms = window.location.pathname === "/termos";
 
   return (
-    <div ref={rootRef} className="site">
-      <a className="skip" href="#hero">
-        Ir para o conteúdo
-      </a>
-      <Header />
-      <SectionRail active={active} />
-      <main className="site-main">
-        <BlobBackground />
-        <Hero />
-        <About />
-        <Services />
-        <Cases />
-        <Team />
-        <Clients />
-      </main>
-      <Footer />
-    </div>
+    <>
+      {isTerms ? (
+        <>
+          <TermsPage />
+          <WhatsAppButton />
+        </>
+      ) : (
+        <div ref={rootRef} className="site">
+          <a className="skip" href="#hero">
+            Ir para o conteúdo
+          </a>
+          <Header />
+          <SectionRail active={active} />
+          <main className="site-main">
+            <BlobBackground />
+            <Hero />
+            <About />
+            <Services />
+            <Cases />
+            <Team />
+            <Clients />
+          </main>
+          <Footer />
+          <WhatsAppButton />
+        </div>
+      )}
+    </>
   );
 }

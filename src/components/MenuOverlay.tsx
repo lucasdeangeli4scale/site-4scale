@@ -1,27 +1,76 @@
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { rail, site } from "../content/site";
 import { scrollToSection } from "../animations/scrollTo";
+import { BrandLogo } from "./BrandLogo";
 
-const menuLinks = [{ id: "hero", label: "Início" }, ...rail];
+type MenuLink = {
+  id: string;
+  label: string;
+  action: "section" | "chat";
+};
+
+const menuLinks: readonly MenuLink[] = [
+  { id: "hero", label: "Início", action: "section" },
+  ...rail.map((item) => ({ id: item.id, label: item.label, action: "section" as const })),
+  { id: "contato", label: "Contato", action: "chat" },
+];
+const EXIT_MS = 280;
 
 type MenuOverlayProps = {
   onClose: () => void;
   onChat: () => void;
 };
 
+type MenuExit = "close" | "chat" | { section: string };
+
 export function MenuOverlay({ onClose, onChat }: MenuOverlayProps) {
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const exitTimer = useRef<number | null>(null);
+  const leaving = useRef(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     closeRef.current?.focus();
+    let second = 0;
+    const first = window.requestAnimationFrame(() => {
+      second = window.requestAnimationFrame(() => setOpen(true));
+    });
+    return () => {
+      window.cancelAnimationFrame(first);
+      window.cancelAnimationFrame(second);
+      if (exitTimer.current !== null) {
+        window.clearTimeout(exitTimer.current);
+      }
+    };
   }, []);
+
+  const finish = (action: MenuExit) => {
+    if (leaving.current) {
+      return;
+    }
+    leaving.current = true;
+    setOpen(false);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    exitTimer.current = window.setTimeout(() => {
+      if (action === "chat") {
+        onChat();
+        return;
+      }
+      onClose();
+      if (action !== "close") {
+        window.setTimeout(() => {
+          scrollToSection(action.section);
+        }, 60);
+      }
+    }, reduced ? 0 : EXIT_MS);
+  };
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
+        finish("close");
         return;
       }
       if (event.key !== "Tab" || !panelRef.current) {
@@ -45,39 +94,42 @@ export function MenuOverlay({ onClose, onChat }: MenuOverlayProps) {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [onClose]);
+  }, [onClose, onChat]);
 
   return (
     <div
       ref={panelRef}
-      className="overlay"
+      className={open ? "overlay menu-panel is-open" : "overlay menu-panel"}
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
     >
+      <h2 id={titleId} className="sr-only">
+        Menu
+      </h2>
       <div className="overlay-bar">
-        <button ref={closeRef} type="button" className="text-button" onClick={onClose}>
+        <button ref={closeRef} type="button" className="text-button" onClick={() => finish("close")}>
           <CloseIcon />
           Close
         </button>
-        <p id={titleId} className="brand">
-          {site.brand}
-        </p>
-        <button type="button" className="text-button" onClick={onChat}>
-          Let's chat <span aria-hidden="true">→</span>
+        <BrandLogo presentation="image" />
+        <button type="button" className="text-button" onClick={() => finish("chat")}>
+          {site.contact.cta} <span aria-hidden="true">→</span>
         </button>
       </div>
       <nav aria-label="Menu">
-        {menuLinks.map((link) => (
+        {menuLinks.map((link, index) => (
           <a
             key={link.id}
             href={`#${link.id}`}
+            style={{ animationDelay: `${index * 40}ms` }}
             onClick={(event) => {
               event.preventDefault();
-              onClose();
-              window.setTimeout(() => {
-                scrollToSection(link.id);
-              }, 60);
+              if (link.action === "chat") {
+                finish("chat");
+                return;
+              }
+              finish({ section: link.id });
             }}
           >
             {link.label}
